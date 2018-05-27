@@ -6,6 +6,9 @@ image:
 platform:
   - x64
 
+services:
+  - mongodb
+
 cache:
   # Use the appveyor cache to avoid re-downloading large archives such
   # the MKL numpy and scipy wheels mirrored on a rackspace cloud
