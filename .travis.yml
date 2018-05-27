@@ -1,0 +1,37 @@
+language: python
+
+python:
+  - "3.5.5"
+  - "3.6.5"
+
+services:
+  - mongodb
+
+compiler:
+  - clang
+
+sudo: false
+
+cache: pip
+
+install:
+  - pip install -U wheel pypi setuptools --upgrade
+  - pip install -r requirements.txt
+  - pip install -r requirements-dev.txt --upgrade
+  - pip check
+script:
+  - pytest -v -s
+  - py.test -v --cov=ttmongo --cov-report xml
+after_success:
+  - codecov -e $TRAVIS_PYTHON_VERSION
+
+deploy:
+  provider: pypi
+  user: nooperpudd
+  password:
+    secure:
+  distributions: sdist
+  on:
+    tags: true
+    python: '3.6'
+

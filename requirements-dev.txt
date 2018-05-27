@@ -1,0 +1,7 @@
+pytz>=2018.3
+pytest
+pytest-cov
+pytest-runner
+pytest-xdist
+pytest-timeout
+codecov
