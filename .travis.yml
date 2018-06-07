@@ -20,6 +20,7 @@ install:
   - pip install -r requirements-dev.txt --upgrade
   - pip check
 script:
+  - mongod --version
   - pytest -v -s
   - py.test -v --cov=ttmongo --cov-report xml
 after_success:
