@@ -35,7 +35,7 @@ environment:
       PYTHON_VERSION: "3.5.5"
       PYTHON_ARCH: "64"
 
-    MONGO_BINS: "C:\\mongodb\\bin"
+  MONGO_BINS: "C:\\mongodb\\bin"
 
 
 init:
@@ -67,7 +67,7 @@ install:
 #  - cd ..
 
   - "SET PATH=%MONGO_BINS%;%PATH%"
-  
+
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   # Check that we have the expected version and architecture for Python
   - "python --version"
