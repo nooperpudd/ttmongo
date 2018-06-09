@@ -9,11 +9,14 @@ os:
 
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-trusty-5.0
     packages:
       - gcc-7
       - g++-7
       - cmake
-      - wget
+
 
 services:
   - mongodb
