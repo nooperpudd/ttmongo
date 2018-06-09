@@ -1,33 +1,55 @@
 language: python
 
 python:
-  - "3.5.5"
-  - "3.6.5"
+  - "3.5"
+  - "3.6"
+
+os:
+  - linux
 
 addons:
   apt:
     packages:
-      - libsnappy-dev
+      - gcc-7
+      - g++-7
+      - cmake
+      - wget
 
 services:
   - mongodb
 
 compiler:
   - clang
+  - gcc
 
 sudo: false
 
 cache: pip
 
+before_install:
+  - gcc -v && g++ -v && cmake --version
+
+  - git clone https://github.com/google/snappy.git ./snappy -b master
+
+  - cd ./snappy && mkdir -p build && cd build
+
+  - cmake ..
+  - cmake --build .
+  - sudo cmake --build . --target install
+  - cd ../..  # back to repository directory
+
 install:
+
   - pip install -U wheel pypi setuptools --upgrade
   - pip install -r requirements.txt
   - pip install -r requirements-dev.txt --upgrade
   - pip check
+
 script:
   - mongod --version
   - pytest -v -s
   - py.test -v --cov=ttmongo --cov-report xml
+
 after_success:
   - codecov -e $TRAVIS_PYTHON_VERSION
 
@@ -35,9 +57,8 @@ deploy:
   provider: pypi
   user: nooperpudd
   password:
-    secure:
+    secure: IKGaywVNDDDtz2TqE3kAxB7k3W1iMg+ZrKvbSeCzPZ9ecQn1dOEliFGMNg8Y1n4lpza2RP8RptQABGK12NCXrsdEUSt+mQ1YAd8SV6q5iUJpSTsaZn4lEtc74qCCsi3UqDIAO++46izBp6kbq+mXM7D0iFVkBSMMF1/td8bG2yK3rF90js/NrUyglRqhCUaXQ6YRaiycDlaDrslYo88NN0zdBBrk7/StqaG6uqQfAv+ZzK8A9WUNryFt81dqvUCXMsJX1eleKRxU4e267Q1fr5MpyaOpXySiCF05XLeaZJmnzxVLm7sG0cHciWM9/cWRYStXTAik4bI44OMM/FWKTDvZugcUPr5QQPFMTzz2kzvYlHqgIXjm0M/Gmq7Jn+QVp0l6PgB2bS5Se6GrVW9YdPNLQ20ZLmGcqLWxD33yhFT/k9my7PGhzFXkb9pE0Yqd/aYYRUMkHH8P8mfROTYTToPX1ovO0mvmigsM1cyDaqyDYFL3Vjk1wHYdvy7ztfG+mbAOyP1umd/dTwUSYYMk6NMVG7GgmjNrd7UD7ym+vI7uw9m4TNoY+9s3hwb9D0StRBPUMlD9vS6ByC6VKebbLBn67oIxr+vls0uB8V+2O3DyfkOBbd02fFrunJ+IQ7E32zLuo1TjphC8pfiv1YWQJITr3R0dVa4Iwele4gfYxQo=
   distributions: sdist
   on:
     tags: true
     python: '3.6'
-
