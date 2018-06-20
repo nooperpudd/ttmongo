@@ -1,12 +1,13 @@
 # encoding:utf-8
 
-import pandas as pd
-import unittest
-import numpy as np
-from ttmongo.timestamp import TimeSeriesTimestamp
-import pytz
 import datetime
+import unittest
+
 import pymongo
+import pytz
+
+from ttmongo.timestamp import TimeSeriesTimestamp
+from .mixin import generate_timestamp_array
 
 class TimestampSeriesMongoTest(unittest.TestCase):
 
@@ -18,20 +19,19 @@ class TimestampSeriesMongoTest(unittest.TestCase):
                                                     db="test",
                                                     collection="timestamp")
 
+        self.timestamp_data = generate_timestamp_array(self.timestamp)
+
     def tearDown(self):
         self.timestamp_series.drop_collection()
 
-    def generate_timestamp_array(self,length=1000):
 
-        array_data = []
-        for i in range(length):
-            array_data.append((self.timestamp+i,{"value",i}))
-        return array_data
-
-    def test_add_timestamp_array(self):
-
-        array_data = self.generate_timestamp_array()
-
-
+    def test_add_data(self):
+        pass
+    def test_delete_data(self):
+        pass
+    def test_get_date_range(self):
+        pass
+    def test_get_date_range_with_start(self):
+        pass
 
 
