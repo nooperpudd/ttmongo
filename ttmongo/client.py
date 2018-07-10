@@ -9,7 +9,6 @@ from bson.codec_options import CodecOptions
 
 class TSMongoClient(object):
     """
-
     https://docs.mongodb.com/manual/reference/command/
     collMod/#dbcmd.collMod
 
@@ -92,7 +91,7 @@ class TSMongoClient(object):
         self.code_options = CodecOptions(tz_aware=True, tzinfo=tz)
 
         if not self.db.get_collection(collection):
-            self.db.create_collection(collection,)
+            self.db.create_collection(collection)
 
     @property
     @functools.lru_cache
@@ -124,7 +123,7 @@ class TSMongoClient(object):
         """
         :return:
         """
-        return self.db[self._collection]
+        return self.db.get_collection(self._collection)
 
     def __del__(self):
         self.client.close()

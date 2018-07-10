@@ -9,6 +9,7 @@ import pytz
 from ttmongo.timestamp import TimeSeriesTimestamp
 from .mixin import generate_timestamp_array
 
+
 class TimestampSeriesMongoTest(unittest.TestCase):
 
     def setUp(self):
@@ -24,9 +25,9 @@ class TimestampSeriesMongoTest(unittest.TestCase):
     def tearDown(self):
         self.timestamp_series.drop_collection()
 
-
     def test_add_data(self):
         pass
+
     def test_delete_data(self):
         pass
     def test_get_date_range(self):

@@ -1,0 +1,8 @@
+Bson Document Size 16mb
+
+consider to use BSON DATE TYPE instread of use bson timestamp
+
+# bson date type are UTC datetime.
+BSON Date type as the UTC datetime.
+
+DATA Negative values represent dates before 1970.
